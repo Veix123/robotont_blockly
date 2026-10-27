@@ -1,0 +1,27 @@
+{
+  "name": "robotont-blockly",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5174",
+    "build": "vite build",
+    "preview": "vite preview",
+    "predev": "npm run vendor",
+    "prebuild": "npm run vendor",
+    "vendor": "node scripts/vendor-blockly.mjs",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "vite": "8.3.5"
+  },
+  "dependencies": {
+    "ros3d": "^1.1.0",
+    "roslib": "^1.4.1",
+    "three": "^0.89.0",
+    "blockly": "13.4.0"
+  }
+}

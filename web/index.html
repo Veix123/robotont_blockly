@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#0a655c" />
+    <title>Robotont Live</title>
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <div class="brand">
+          <span class="brand-icon">R</span>
+          <div>
+            <h1>Robotont <span>web app</span></h1>
+          </div>
+        </div>
+        <a href="/blockly/">Blockly</a>
+        <div class="connection">
+          <span id="online" class="dot"></span><span id="connection">Connecting…</span
+          ><select id="robot" aria-label="Choose robot"></select>
+        </div>
+      </header>
+      <main>
+        <section class="overview">
+          <div>
+            <span class="eyebrow">CONNECTED ROBOT</span>
+            <h2 id="robot-title">No robot</h2>
+            <p id="robot-detail">Waiting for the robot connection</p>
+          </div>
+          <div class="overview-actions">
+            <button id="stop" class="danger">■ Stop robot</button>
+          </div>
+        </section>
+        <section class="metrics" aria-label="Live telemetry">
+          <article>
+            <span>Battery</span><strong id="battery">—</strong
+            ><small id="battery-detail">No battery data</small>
+          </article>
+          <article>
+            <span>Speed</span><strong id="speed">—</strong
+            ><small id="rotation">No motion data</small>
+          </article>
+        </section>
+        <div class="dashboard">
+          <div class="sensors">
+            <section class="camera-grid">
+              <article class="card">
+                <div class="card-title">
+                  <h3>RGB camera</h3>
+                  <span id="rgb-status" class="tag">No data</span>
+                </div>
+                <div class="camera">
+                  <img id="rgb" alt="Live robot RGB camera" hidden />
+                  <p id="rgb-placeholder">Waiting for camera</p>
+                </div>
+              </article>
+              <article class="card">
+                <div class="card-title">
+                  <h3>Depth camera</h3>
+                  <span id="depth-status" class="tag">No data</span>
+                </div>
+                <div class="camera">
+                  <img id="depth" alt="Live depth image" hidden />
+                  <p id="depth-placeholder">No depth camera</p>
+                </div>
+              </article>
+            </section>
+            <section class="card">
+              <div class="card-title">
+                <h3>Lidar data</h3>
+                <span
+                  ><label class="range-label" id="points-label" hidden
+                    ><input type="checkbox" id="points" /> Point cloud (heavy)</label
+                  >
+                  <button id="view-follow" class="secondary small">Follow</button>
+                  <button id="view-top" class="secondary small">Top down</button></span
+                >
+              </div>
+              <div id="scene" class="scene"></div>
+              <dl id="distances" class="distances"></dl>
+            </section>
+            <section class="card">
+              <div class="card-title">
+                <h3>Terminal</h3>
+                <button id="terminal-toggle" class="secondary small">Open terminal</button>
+              </div>
+              <iframe id="terminal" title="Terminal" hidden></iframe>
+            </section>
+          </div>
+          <aside>
+            <section class="card">
+              <div class="card-title">
+                <h3>Drive</h3>
+                <span id="drive-status" class="tag">Ready</span>
+              </div>
+              <p class="hint">Hold a button to move. Release to stop.</p>
+              <div class="drive-pad">
+                <button data-drive="turn-left" aria-label="Turn left">↶</button
+                ><button data-drive="front" aria-label="Move forward">↑</button
+                ><button data-drive="turn-right" aria-label="Turn right">↷</button>
+                <button data-drive="left" aria-label="Move left">←</button
+                ><span class="robot-mark"> </span
+                ><button data-drive="right" aria-label="Move right">→</button><span></span
+                ><button data-drive="back" aria-label="Move backward">↓</button>
+              </div>
+              <label class="slider-label"
+                >Move speed <output id="move-value">0.15 m/s</output
+                ><input id="move-speed" type="range" min="0.05" max="0.3" step="0.05" value="0.15"
+              /></label>
+              <label class="slider-label"
+                >Turn speed <output id="turn-value">0.5 rad/s</output
+                ><input id="turn-speed" type="range" min="0.1" max="1" step="0.1" value="0.5"
+              /></label>
+              <p class="hint keyboard">W A S D / arrows · Q E turn · Space stops</p>
+            </section>
+            <section class="card">
+              <div class="card-title">
+                <h3>Lights</h3>
+                <span id="led-status" class="tag">Unavailable</span>
+              </div>
+              <p id="led-note" class="hint">Waiting for the LED module</p>
+              <label
+                >Group
+                <select id="led-side">
+                  <option value="all">All lights</option>
+                  <option value="front">Front</option>
+                  <option value="back">Back</option>
+                  <option value="left">Left</option>
+                  <option value="right">Right</option>
+                </select></label
+              >
+              <div class="color-row">
+                <input
+                  id="led-color"
+                  type="color"
+                  value="#12b8a6"
+                  aria-label="Light color"
+                /><button id="apply-led">Set color</button
+                ><button id="off-led" class="secondary">Off</button>
+              </div>
+              <p id="led-last" class="hint">No light commands sent</p>
+            </section>
+            <section class="card">
+              <div class="card-title">
+                <h3>Activity</h3>
+                <span class="tag">This session</span>
+              </div>
+              <ol id="log" aria-live="polite">
+                <li>Ready to connect</li>
+              </ol>
+            </section>
+          </aside>
+        </div>
+        <footer>Anyone on this network can control the robot. Use a private network.</footer>
+      </main>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

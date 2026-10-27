@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a655c" />
+    <title>Robotont Blockly</title>
+    <link rel="stylesheet" href="/src/blockly/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <div>
+          <h1>Robotont Blockly</h1>
+        </div>
+        <div class="actions">
+          <button id="run">▶ Run</button><button id="stop" class="stop">■ Stop</button>
+        </div>
+      </header>
+      <nav aria-label="Program settings">
+        <a href="/">Dashboard</a>
+        <label
+          >Robot
+          <select id="robot-choice" aria-label="Choose robot"></select
+        ></label>
+        <label
+          >Example
+          <select id="example">
+            <option value="motion">Move and turn</option>
+            <option value="obstacle">Front obstacle</option>
+            <option value="lights">Directional lights</option>
+          </select></label
+        >
+        <button id="save" class="secondary">Save program</button
+        ><button id="load" class="secondary">Load program</button>
+        <input id="file" type="file" accept=".json,application/json" hidden />
+      </nav>
+      <div id="connection" role="status">Connecting…</div>
+      <main>
+        <div id="workspace" aria-label="Blockly program editor"></div>
+        <aside>
+          <h2>Robot view</h2>
+          <div class="view-controls">
+            <button id="follow" class="secondary">Follow</button
+            ><button id="top" class="secondary">Top down</button>
+          </div>
+          <div id="scene" class="scene"></div>
+          <div class="camera">
+            <img id="camera" alt="Robot camera" hidden />
+            <p id="camera-note">No camera</p>
+          </div>
+          <h2>Obstacle distances</h2>
+          <dl id="distances"></dl>
+          <h2>Program log</h2>
+          <ol id="log" aria-live="polite"></ol>
+        </aside>
+      </main>
+    </div>
+    <script type="module" src="/src/blockly/main.js"></script>
+  </body>
+</html>

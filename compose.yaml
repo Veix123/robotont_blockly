@@ -1,0 +1,9 @@
+services:
+  webapp:
+    build:
+      context: .
+      network: host
+    network_mode: host
+    environment:
+      WEB_BIND: ${WEB_BIND:-127.0.0.1}
+      PORT: ${WEBAPP_PORT:-5174}
