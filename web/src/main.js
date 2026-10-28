@@ -2,20 +2,11 @@ import './style.css';
 import { RobotConnection } from './ros_connection.js';
 import { RobotControl } from './robot_control.js';
 import { RobotViewer } from './viewer.js';
+import { previews, savePreviews } from './previews.js';
 
 const TERMINAL_PORT = Number(new URLSearchParams(location.search).get('terminal')) || 7681;
 
 const element = (id) => document.getElementById(id);
-// Previews switched off stop their streams, which saves robot CPU and Wi-Fi; remembered per browser
-const previews = { rgb: true, depth: true, scan: true };
-try {
-  Object.assign(previews, JSON.parse(localStorage.getItem('previews')));
-} catch {}
-const savePreviews = () => {
-  try {
-    localStorage.setItem('previews', JSON.stringify(previews));
-  } catch {}
-};
 const connection = new RobotConnection();
 const control = new RobotControl(connection);
 const viewer = new RobotViewer(element('scene'), connection);
